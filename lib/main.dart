@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(
@@ -43,6 +44,7 @@ class _MySaffoldState extends State<MySaffold> {
   var seller_percentage_controler= TextEditingController();
   var range_of_game_price=7;
 
+
     _MySaffoldState(){
       tax_of_price_controler.text=default_tax;
       seller_percentage_controler.text=default_seller_percentage;
@@ -71,12 +73,33 @@ class _MySaffoldState extends State<MySaffold> {
       return int.parse(result.toStringAsFixed(0));
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('محاسبه قیمت طلا'),
         centerTitle: true,
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            UserAccountsDrawerHeader(
+                currentAccountPicture: CircleAvatar(backgroundImage: AssetImage('images/reza2.png') ) ,
+                otherAccountsPictures: [
+                  Directionality(textDirection: TextDirection.ltr,child:  Tooltip(message: '@rezarezaee',child: CircleAvatar(backgroundImage: AssetImage('images/telegram.png'),backgroundColor: Colors.transparent,) ,)),
+                  Directionality(textDirection: TextDirection.ltr,child: Tooltip(message: '@rezarezaeedev',child:   CircleAvatar(backgroundImage: AssetImage('images/github.png'),backgroundColor: Colors.transparent,) ,),),
+                  Directionality(textDirection: TextDirection.ltr,child: Tooltip(message: '@devplus_',child:  CircleAvatar(backgroundImage: AssetImage('images/instagram.png'),backgroundColor: Colors.transparent,) ,  )),
+                ],
+                accountName: Text('Reza Rezaee'),
+                accountEmail: Directionality(textDirection: TextDirection.ltr,child: Tooltip(child: TextButton(child: Text( 'rezarezaee.commercial@gmail.com',style: TextStyle(color: Colors.black),),onPressed: (){} ),message: 'Github',)),
+            ),
+
+
+          
+            
+          ],
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 10),
@@ -174,6 +197,8 @@ class _MySaffoldState extends State<MySaffold> {
                     ),
                     CupertinoButton(
                       onPressed: (){
+
+
                           price_per_geram_controler.clear();
                           award_per_geram_controler.clear();
                           total_weight_controler.clear();
@@ -240,6 +265,7 @@ class _MySaffoldState extends State<MySaffold> {
                     Column(
                       children: [
                         MaterialButton(
+
                           padding: EdgeInsets.only(bottom: 15,top: 15),
                             onPressed: (){
 
@@ -254,9 +280,9 @@ class _MySaffoldState extends State<MySaffold> {
                               ],
                             )
                         ),
-                        
+
                         Text('$fair_price'),
-                                                                        
+
                       ],
                     ),
 
@@ -312,8 +338,6 @@ class _MySaffoldState extends State<MySaffold> {
     );
   }
 }
-
-
 
 
 
