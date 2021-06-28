@@ -142,7 +142,7 @@ class _MySaffoldState extends State<MySaffold> {
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       labelStyle: TextStyle(height: -1),
-                    labelText: 'اجرت هر گرم',
+                    labelText: 'اجرت ساخت هر گرم',
                     suffixText: 'تومان' ,
                     helperText: 'مثال: 60,000(تومان)',
                       helperStyle: TextStyle(fontSize: 9)
@@ -162,8 +162,8 @@ class _MySaffoldState extends State<MySaffold> {
                   decoration: InputDecoration(
                       labelStyle: TextStyle(height: -1),
                     labelText: 'وزن کل طلا',
-                    suffixText: 'تومان' ,
-                    helperText: 'مثال: 53(گرم)',
+                    suffixText: 'گرم' ,
+                    helperText: 'مثال: 60(گرم)',
                       helperStyle: TextStyle(fontSize: 9)
                   ),
                   maxLines: 1,
