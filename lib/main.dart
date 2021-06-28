@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 void main() {
   runApp(
       MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.amber,
           fontFamily: 'vazir',
@@ -95,7 +96,13 @@ class _MySaffoldState extends State<MySaffold> {
                 accountEmail: Directionality(textDirection: TextDirection.ltr,child: Tooltip(child: TextButton(child: Text( 'rezarezaee.commercial@gmail.com',style: TextStyle(color: Colors.black),),onPressed: (){} ),message: 'Github',)),
             ),
 
-
+            ListTile(
+              title: Text('خروج'),
+              leading: Icon(Icons.exit_to_app),
+              onTap: (){
+                SystemNavigator.pop();
+              },
+            )
           
             
           ],
