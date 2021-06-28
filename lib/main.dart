@@ -41,6 +41,7 @@ class _MySaffoldState extends State<MySaffold> {
   var total_weight_controler= TextEditingController();
   var tax_of_price_controler= TextEditingController();
   var seller_percentage_controler= TextEditingController();
+  var range_of_game_price=7;
 
     _MySaffoldState(){
       tax_of_price_controler.text=default_tax;
@@ -65,7 +66,8 @@ class _MySaffoldState extends State<MySaffold> {
 
   int calculate_gold_price(int a_gram,int weight, int award,int tax,int seller_percentage){
       var result;
-      result=((a_gram+award)*weight)+(tax/100)+(seller_percentage/100);
+      result=(a_gram+award)*weight;
+      result=result + (result*tax/100)+(result*seller_percentage/100) ;
       return int.parse(result.toStringAsFixed(0));
   }
 
@@ -156,7 +158,13 @@ class _MySaffoldState extends State<MySaffold> {
                               var seller_percentage=int.parse(seller_percentage_controler.text);
                               var final_price=calculate_gold_price(a_gram, weight, award, tax, seller_percentage);
 
+                              var final_maximum_price=final_price+(final_price*(range_of_game_price/100));
+                              var final_minimum_price=final_price-(final_price*(range_of_game_price/100));
+
                               fair_price='${price_seperator(final_price.toString())} ${toman}';
+                              minimum_price='${price_seperator(final_minimum_price.toStringAsFixed(0))} ${toman}';
+                              maximum_price='${price_seperator(final_maximum_price.toStringAsFixed(0))} ${toman}';
+
 
                             });
                         },
@@ -230,9 +238,9 @@ class _MySaffoldState extends State<MySaffold> {
                 Column(
                   children: [
                     Column(
-
                       children: [
                         MaterialButton(
+                          padding: EdgeInsets.only(bottom: 15,top: 15),
                             onPressed: (){
 
                             },
@@ -250,7 +258,51 @@ class _MySaffoldState extends State<MySaffold> {
                         Text('$fair_price'),
                                                                         
                       ],
-                    )
+                    ),
+
+                    Column(
+                      children: [
+                        MaterialButton( padding: EdgeInsets.only(bottom: 15,top: 15),
+                            onPressed: (){
+
+                            },
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 12),
+                                  child: Icon(Icons.info),
+                                ),
+                                Text('حداقل قیمت',),
+                              ],
+                            )
+                        ),
+
+                        Text('$minimum_price'),
+
+                      ],
+                    ),
+
+                    Column(
+                      children: [
+                        MaterialButton( padding: EdgeInsets.only(bottom: 15,top: 15),
+                            onPressed: (){
+
+                            },
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 12),
+                                  child: Icon(Icons.info),
+                                ),
+                                Text('حداکثر قیمت',),
+                              ],
+                            )
+                        ),
+
+                        Text('$maximum_price'),
+
+                      ],
+                    ),
                   ],
                 )
             ],
