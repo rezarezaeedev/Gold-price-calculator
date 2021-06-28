@@ -1,6 +1,4 @@
- 
-
-import 'dart:ui';
+import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,17 +27,46 @@ class MySaffold extends StatefulWidget {
 }
 
 class _MySaffoldState extends State<MySaffold> {
+  final String default_tax='9';
+  final String default_seller_percentage='7';
+  final String toman='تومان';
+  final String rial='ریال';
+  final String dollar='\$';
+  var   fair_price='';
+  var   maximum_price='';
+  var   minimum_price='';
+
   var price_per_geram_controler= TextEditingController();
   var award_per_geram_controler= TextEditingController();
   var total_weight_controler= TextEditingController();
   var tax_of_price_controler= TextEditingController();
   var seller_percentage_controler= TextEditingController();
-  final String default_tax='9';
-  final String default_seller_percentage='7';
 
     _MySaffoldState(){
       tax_of_price_controler.text=default_tax;
       seller_percentage_controler.text=default_seller_percentage;
+  }
+
+  String price_seperator(String price){
+    var result='';
+    price=price.split('').reversed.join();
+    int counter=0;
+    for(int i=0;i<price.length;i++){
+       result=price[i]+result;
+       counter++;
+       if(counter==3 && i!=price.length-1){
+         counter=0;
+         result=','+result;
+       }
+
+    }
+    return result;
+  }
+
+  int calculate_gold_price(int a_gram,int weight, int award,int tax,int seller_percentage){
+      var result;
+      result=((a_gram+award)*weight)+(tax/100)+(seller_percentage/100);
+      return int.parse(result.toStringAsFixed(0));
   }
 
   @override
@@ -97,7 +124,7 @@ class _MySaffoldState extends State<MySaffold> {
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: TextField(
                   textDirection: TextDirection.ltr,
-                  textAlign: TextAlign.right ,
+                  textAlign: TextAlign.center ,
                   controller: total_weight_controler,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -121,7 +148,17 @@ class _MySaffoldState extends State<MySaffold> {
                     SizedBox(
                       child: RaisedButton(
                         onPressed: (){
+                            setState(() {
+                              var a_gram=int.parse(price_per_geram_controler.text);
+                              var weight=int.parse(total_weight_controler.text);
+                              var award=int.parse(award_per_geram_controler.text);
+                              var tax=int.parse(tax_of_price_controler.text);
+                              var seller_percentage=int.parse(seller_percentage_controler.text);
+                              var final_price=calculate_gold_price(a_gram, weight, award, tax, seller_percentage);
 
+                              fair_price='${price_seperator(final_price.toString())} ${toman}';
+
+                            });
                         },
                         child:Text('محاسبه'),
                       ),
@@ -188,8 +225,34 @@ class _MySaffoldState extends State<MySaffold> {
 
                   ],
                 ),
-              ],)
+              ],),
 
+                Column(
+                  children: [
+                    Column(
+
+                      children: [
+                        MaterialButton(
+                            onPressed: (){
+
+                            },
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 12),
+                                  child: Icon(Icons.info),
+                                ),
+                                Text('قیمت خرید منصفانه',),
+                              ],
+                            )
+                        ),
+                        
+                        Text('$fair_price'),
+                                                                        
+                      ],
+                    )
+                  ],
+                )
             ],
           ),
         ),
