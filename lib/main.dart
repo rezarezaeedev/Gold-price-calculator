@@ -93,7 +93,7 @@ class _MySaffoldState extends State<MySaffold> {
                   Directionality(textDirection: TextDirection.ltr,child: Tooltip(message: '@devplus_',child:  CircleAvatar(backgroundImage: AssetImage('images/instagram.png'),backgroundColor: Colors.transparent,) ,  )),
                 ],
                 accountName: Text('Reza Rezaee'),
-                accountEmail: Directionality(textDirection: TextDirection.ltr,child: Tooltip(child: TextButton(child: Text( 'rezarezaee.commercial@gmail.com',style: TextStyle(color: Colors.black),),onPressed: (){} ),message: 'Github',)),
+                accountEmail: Directionality(textDirection: TextDirection.ltr,child: Tooltip(child: TextButton(child: Text( 'rezarezaee.commercial@gmail.com',style: TextStyle(color: Colors.black),),onPressed: (){} ),message: 'Gmail',)),
             ),
 
             ListTile(
@@ -214,6 +214,12 @@ class _MySaffoldState extends State<MySaffold> {
 
                           tax_of_price_controler.text=default_tax;
                           seller_percentage_controler.text=default_seller_percentage;
+
+                          setState(() {
+                            fair_price='';
+                            maximum_price='';
+                            minimum_price='';
+                          });
                       },
                       child: Text('پاکردن',style: TextStyle(fontSize: 15,color: Colors.black.withOpacity(0.7),),),
                       pressedOpacity: 0.4,
