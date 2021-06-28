@@ -82,7 +82,7 @@ class _MySaffoldState extends State<MySaffold> {
         centerTitle: true,
       ),
       drawer: Drawer(
-        child: Column(
+        child: ListView(
           children: [
             UserAccountsDrawerHeader(
                 currentAccountPicture: CircleAvatar(backgroundImage: AssetImage('images/reza2.png') ) ,
